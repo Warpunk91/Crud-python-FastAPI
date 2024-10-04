@@ -20,3 +20,15 @@ def delete_libro(db: Session, libro_id: int):
         db.delete(db_libro)
         db.commit()
     return db_libro
+
+def update_libro(db: Session, id: int, libro: schemas.LibroUpdate):
+    db_libro = db.query(models.Libro).filter(models.Libro.id == id).first()
+    if db_libro is None:
+        return None
+    if libro.name:
+        db_libro.name = libro.name
+    if libro.description:
+        db_libro.description = libro.description
+    db.commit()
+    db.refresh(db_libro)
+    return db_libro

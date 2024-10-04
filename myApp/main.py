@@ -34,3 +34,12 @@ def deleteLibro(id: int, db: Session = Depends(get_db)):
     if dbLibro is None:
         raise HTTPException(status_code=404, detail="Libro no encontrado")
     return {"message": "Libro Eliminado"}
+
+
+# Ruta para actualizar un item
+@app.put("/libros/{libro_id}", response_model=schemas.Libro)
+def updateLibro(libro_id: int, libro: schemas.LibroUpdate, db: Session = Depends(get_db)):
+    db_libro = crud.update_libro(db, libro_id, libro=libro)
+    if db_libro is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return db_libro
