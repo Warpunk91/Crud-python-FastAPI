@@ -1,6 +1,5 @@
 const apiUrl = "http://127.0.0.1:8000/libros/";
 
-// Función para obtener los items existentes
 async function getLibros() {
     const response = await fetch(apiUrl);
     const libros = await response.json();
@@ -37,13 +36,11 @@ async function getLibros() {
     });
     table.appendChild(tbody);
 
-    // Agregar la tabla al elemento contenedor
-    itemsList.innerHTML = ''; // Limpiar el contenido anterior
+    itemsList.innerHTML = ''; 
     itemsList.appendChild(table);
 
 }
 
-// Función para crear o actualizar un item
 async function submitForm(event) {
     event.preventDefault();
     const itemId = document.getElementById('item-id').value;
@@ -78,7 +75,6 @@ async function submitForm(event) {
     getLibros();
 }
 
-// Función para cargar un item en el formulario para editarlo
 async function getLibro(id) {
     const response = await fetch(`${apiUrl}${id}`);
     const libros = await response.json();
@@ -88,18 +84,15 @@ async function getLibro(id) {
     document.getElementById('description').value = libros.description; 
 }
 
-// Función para eliminar un item 
 async function deleteLibro(id) { 
     await fetch(`${apiUrl}${id}`, { method: 'DELETE' }); 
     getLibros(); 
 }
-
-// Inicializar la lista de items al cargar la página 
+ 
 window.onload = function() { 
     getLibros();
 };
 
-// Escuchar el evento submit del formulario 
 document.getElementById('item-form').addEventListener('submit', function(event) {
     submitForm(event);
   });
