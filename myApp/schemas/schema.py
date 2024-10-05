@@ -1,21 +1,20 @@
 from pydantic import BaseModel
-from typing import Optional
 
 class LibroBase(BaseModel):
     name: str
     autor: str
     description: str
+    
+class Libro(LibroBase):
+    id: int
 
 class LibroCreate(LibroBase):
     pass
-
-class Libro(LibroBase):
-    id: int
     
 class LibroUpdate(BaseModel):
-    name: Optional[str] = None
-    autor: Optional[str] = None
-    description: Optional[str] = None
+    name: str
+    autor: str
+    description: str
 
     class Config:
         orm_mode = True
